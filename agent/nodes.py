@@ -67,7 +67,7 @@ def score_sites(state: AgentState) -> dict:
         "risk_score": risk_score
     }
 
-def verdict (state: AgentState) -> dict:
+def make_verdict (state: AgentState) -> dict:
     """
     Node 4:
         Make a final verdict on whether to proceed with the designed gRNA

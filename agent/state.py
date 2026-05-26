@@ -1,4 +1,4 @@
-from typing import TypeDict, Optional
+from typing import TypedDict, Optional
 from dataclasses import dataclass, field
 
 @dataclass
@@ -12,7 +12,7 @@ class OffTargetSite:
     cancer_gene_name: Optional[str]
     site_risk_score: float
 
-class AgentState(TypeDict):
+class AgentState(TypedDict):
     gene: str
     variant:str
     variant_id: Optional[str]
