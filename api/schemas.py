@@ -23,7 +23,7 @@ class OffTargetResponse(BaseModel):
 class AnalyzeResponse(BaseModel):
     gene: str
     variant: str
-    variant_id: Optional[int]
+    variant_id: Optional[int] = None
     simulation_id: Optional[int] = None
     analyzed_at: datetime = Field(default_factory=datetime.utcnow)
 

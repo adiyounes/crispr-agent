@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from agent.state import OffTargetSite
 import db
-from db.queries import is_in_exon, get_nearby_cancer_genes, is_near_clinvar_pathogenic
+from db.queries import in_exon, get_nearby_cancer_genes, is_near_clinvar_pathogenic
 
 
 def mismatch_to_score(mismatch_count: int) -> float:
@@ -22,8 +22,8 @@ def score_off_target(site: OffTargetSite, db: Session) -> OffTargetSite:
 
     mismatch_score = mismatch_to_score(site.mismatch_count)
 
-    in_exon = is_in_exon(db, site.chromosome, site.position)
-    context_penalty = 1.0 if in_exon else 0.0
+    in_exon_result = in_exon(db, site.chromosome, site.position)
+    context_penalty = 1.0 if in_exon_result else 0.0
 
     nearby_genes = get_nearby_cancer_genes(db, site.chromosome, site.position)
     cancer_proximity = 1.0 if nearby_genes else 0.0

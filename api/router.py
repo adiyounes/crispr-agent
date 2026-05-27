@@ -74,5 +74,5 @@ async def analyze(request: AnalyzeRequest, db: Session = Depends(get_db)):
             near_cancer_gene=ot.near_cancer_gene,
             cancer_gene_name=ot.cancer_gene_name,
             site_risk_score=ot.site_risk_score
-        ) for ot in result.off_targets]
+        ) for ot in result["off_targets"]]
     ) 
