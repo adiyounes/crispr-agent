@@ -19,11 +19,12 @@ def blast_sequence(grna_sequence) -> list:
     off_targets = []
 
     for alignment in record.alignments:
+            
+        chrom = alignment.title.split("chromosome")[-1].strip().split()[0]
+        chromosome = f"chr{chrom}"
+            
         for hsp in alignment.hsps:
             
-            chrom = alignment.title.split("chromosome")[-1].strip().split()[0]
-            chromosome = f"chr{chrom}"
-
             if hsp.expect > 0.01:
                 continue
             

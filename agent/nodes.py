@@ -1,4 +1,7 @@
 from agent.state import AgentState, OffTargetSite
+from tools.grna_designer import design_grna as design_grna_tool
+from tools.genome_scanner import blast_sequence
+from tools.risk_scorer import score_off_target
 
 def design_grna(state: AgentState) -> dict:
     """
@@ -9,8 +12,7 @@ def design_grna(state: AgentState) -> dict:
     gene = state["gene"]
     variant = state["variant"]
 
-    grna_sequence = "AGCTTAGCTAGCTAGCTAGC"
-    grna_reasoning = f"stub gRNA designed for {gene}  {variant}"
+    grna_sequence, grna_reasoning = design_grna_tool(gene, variant)
 
     return {
         "grna_sequence": grna_sequence,
@@ -25,28 +27,7 @@ def scan_genome(state: AgentState) -> dict:
 
     grna_sequence = state["grna_sequence"]
 
-    off_targets = [
-        OffTargetSite(
-            chromosome="chr1",
-            position=123456,
-            sequence="AGCTTAGCTAGCTAGCTAGT",
-            mismatch_count=1,
-            in_exon=True,
-            near_cancer_gene=True,
-            cancer_gene_name="TP53",
-            site_risk_score=0.8
-        ),
-        OffTargetSite(
-            chromosome="chr2",
-            position=789012,
-            sequence="AGCTTAGCTAGCTAGCTAGG",
-            mismatch_count=2,
-            in_exon=False,
-            near_cancer_gene=False,
-            cancer_gene_name=None,
-            site_risk_score=0.3
-        )
-    ]
+    off_targets = blast_sequence(grna_sequence)
 
     return {
         "off_targets": off_targets
@@ -59,11 +40,14 @@ def score_sites(state: AgentState) -> dict:
     """
 
     off_targets = state["off_targets"]
+    db = state["db"]
 
-    risk_score = max([site.site_risk_score for site in off_targets])
+    scored_sites = [score_off_target(site, db) for site in off_targets]
 
+    risk_score = max([site.site_risk_score for site in scored_sites]) if scored_sites else 0.0
+    
     return {
-        "off_targets": off_targets,
+        "off_targets": scored_sites,
         "risk_score": risk_score
     }
 

@@ -1,4 +1,4 @@
-from typing import TypedDict, Optional
+from typing import Any, TypedDict, Optional
 from dataclasses import dataclass, field
 
 @dataclass
@@ -26,5 +26,7 @@ class AgentState(TypedDict):
 
     verdict: Optional[str]
     reasoning: Optional[str]
+
+    db: Optional[Any]
 
     
