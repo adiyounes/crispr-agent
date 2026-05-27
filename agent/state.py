@@ -1,4 +1,4 @@
-from typing import TypedDict, Optional
+from typing import Any, TypedDict, Optional
 from dataclasses import dataclass, field
 
 @dataclass
@@ -9,10 +9,10 @@ class OffTargetSite:
     mismatch_count: int
     in_exon: bool
     near_cancer_gene: bool
-    cancer_gene_bame: Optional[str]
+    cancer_gene_name: Optional[str]
     site_risk_score: float
 
-class AgentState(TypeDict):
+class AgentState(TypedDict):
     gene: str
     variant:str
     variant_id: Optional[str]
@@ -24,5 +24,9 @@ class AgentState(TypeDict):
 
     risk_score: Optional[float]
 
-    verdict: Optional[float]
+    verdict: Optional[str]
     reasoning: Optional[str]
+
+    db: Optional[Any]
+
+    

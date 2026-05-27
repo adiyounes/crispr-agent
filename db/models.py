@@ -15,8 +15,8 @@ class CrisprSimulation(Base):
     risk_score = Column(Float)
     reasoning = Column(String)
     analyzed_at = Column(DateTime)
-    variant_id = Column(Integer, ForeignKey("variants.variant_id"))
-    upload_id = Column(Integer, ForeignKey("vcf_uploads.upload_id"))
+    variant_id = Column(Integer)
+    upload_id = Column(Integer)
     off_targets = relationship("CrisprOffTarget", back_populates="simulation")
 
 
