@@ -41,3 +41,17 @@ class ErrorResponse(BaseModel):
     error: str
     details: Optional[str] = None
     timestamp: datetime = Field(default_factory=datetime.utcnow)
+
+class SimulationSummary(BaseModel):
+    simulation_id: int
+    gene: str
+    variant: str
+    grna_sequence: Optional[str]
+    verdict: Optional[str]
+    risk_score: Optional[float]
+    analyzed_at: datetime
+
+class SimulationDetail(SimulationSummary):
+    grna_reasoning: Optional[str]
+    reasoning: Optional[str]
+    off_targets: list[OffTargetResponse]

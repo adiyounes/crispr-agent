@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from agent.graph import app as graph_app
-from api.schemas import AnalyzeRequest, AnalyzeResponse, ErrorResponse, OffTargetResponse
+from api.schemas import AnalyzeRequest, AnalyzeResponse, ErrorResponse, OffTargetResponse, SimulationDetail, SimulationSummary
 from db.session import get_db
 from db.models import CrisprOffTarget, CrisprSimulation
 from datetime import datetime
@@ -76,3 +76,17 @@ async def analyze(request: AnalyzeRequest, db: Session = Depends(get_db)):
             site_risk_score=ot.site_risk_score
         ) for ot in result["off_targets"]]
     ) 
+
+@router.get("/simulations", response_model = list[SimulationSummary])
+async def get_simulations(db: Session = Depends(get_db)):
+	simulations = db.query(CrisprSimulation).all()
+	return simulations
+		
+@router.get("/simulations/{simulation_id}", response_model = SimulationDetail)
+async def get_Simulation(simulation_id: int, db:Session = Depends(get_db)):
+    simulation = db.query(CrisprSimulation).filter(
+		CrisprSimulation.simulation_id == simulation_id
+		).first()
+    if not simulation:
+        raise HTTPException(status_code=404, detail="Simulation not found")
+    return simulation
