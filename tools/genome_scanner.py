@@ -1,12 +1,10 @@
-from socket import socket
-from time import time
-
+import socket
+import time
 from Bio.Blast import NCBIWWW, NCBIXML
 from agent.state import OffTargetSite
 
 MAX_RETRIES = 3
 TIMEOUT_SECONDS = 60
-
 def blast_sequence(grna_sequence) -> list:
     for attempt in range(MAX_RETRIES):
         try:
