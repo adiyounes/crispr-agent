@@ -1,5 +1,5 @@
-from socket import socket
-from time import time
+import socket
+import time
 
 from Bio.Blast import NCBIWWW, NCBIXML
 from agent.state import OffTargetSite
