@@ -1,14 +1,32 @@
-from pydantic import BaseModel, Field
+import re
+
+from pydantic import BaseModel, Field, field_validator
 from typing import Optional
 from datetime import datetime
+import re
 
 class AnalyzeRequest(BaseModel):
     gene: str = Field(..., example="BRCA1")
     variant: str = Field(..., example="c.5266dupC")
+
+    @field_validator("gene")
+    @classmethod
+    def validate_gene(cls, v):
+        if not re.match(r'^[A-Z0-9]{1,10}$', v):
+            raise ValueError("Gene must be upercase letters and numbers only, max length 10")
+        return v
+
     variant_id: Optional[int] = Field(
         None,
         description="FK to genomedxvariant table."
     )
+
+    @field_validator("variant")
+    @classmethod
+    def validate_variant(cls, v):
+        if not re.match(r'^c\.[0-9]+[a-zA-Z>_]+[a-zA-Z0-9]*$', v):
+            raise ValueError("Variant must follow HGVS notation example c.2566dupC")
+        return v
 
 class OffTargetResponse(BaseModel):
     chromosome: str
