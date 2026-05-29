@@ -39,7 +39,14 @@ def design_grna(gene: str, variant: str) -> tuple:
     )
 
     raw = response.content[0].text.strip()
-    raw = raw.replace("```json", "").replace("```", "").strip() 
+    raw = raw.replace("```json", "").replace("```", "").strip()
+
+    if not raw:
+        raise ValueError("Empty response from Anthropic API")
+     
     data = json.loads(raw)
+
+    if "grna_sequence" not in data or "reasoning" not in data:
+        raise ValueError(f"Invalid response format: {raw}") 
 
     return (data["grna_sequence"], data["reasoning"])
