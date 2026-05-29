@@ -42,6 +42,7 @@ class ErrorResponse(BaseModel):
     details: Optional[str] = None
     timestamp: datetime = Field(default_factory=datetime.utcnow)
 
+
 class SimulationSummary(BaseModel):
     simulation_id: int
     gene: str
@@ -53,5 +54,5 @@ class SimulationSummary(BaseModel):
 
 class SimulationDetail(SimulationSummary):
     grna_reasoning: Optional[str]
-    reasoning: Optional[str]
     off_targets: list[OffTargetResponse]
+    reasoning: Optional[str]
