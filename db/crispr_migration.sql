@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS crispr_simulations (
     risk_score DOUBLE PRECISION,
     reasoning TEXT,
     analyzed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    variant_id INT REFERENCES variants(variant_id) ON DELETE CASCADE,
-    upload_id INT REFERENCES vcf_uploads(upload_id) ON DELETE CASCADE
+    variant_id INT,
+    upload_id  INT
 );
 
 
