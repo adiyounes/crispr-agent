@@ -1,4 +1,5 @@
 # CRISPR Safety Agent
+[![Tests](https://github.com/adiyounes/crispr-agent/actions/workflows/tests.yml/badge.svg)](https://github.com/adiyounes/crispr-agent/actions/workflows/tests.yml)
 
 An AI agent that predicts the safety of CRISPR gene edits by identifying 
 off-target cut sites across the human genome.
