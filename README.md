@@ -1,6 +1,17 @@
 # CRISPR Safety Agent
 [![Tests](https://github.com/adiyounes/crispr-agent/actions/workflows/tests.yml/badge.svg)](https://github.com/adiyounes/crispr-agent/actions/workflows/tests.yml)
 
+## 🚀 Live Demo
+
+**API:** https://adiyounes-crispr-agent.hf.space/docs
+
+Try it:
+```bash
+curl -X POST https://adiyounes-crispr-agent.hf.space/api/v1/crispr/analyze \
+  -H "Content-Type: application/json" \
+  -d '{"gene": "BRCA1", "variant": "c.5266dupC", "variant_id": null}'
+```
+
 An AI agent that predicts the safety of CRISPR gene edits by identifying 
 off-target cut sites across the human genome.
 
