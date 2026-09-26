@@ -1,7 +1,7 @@
 # CRISPR Safety Agent
 [![Tests](https://github.com/adiyounes/crispr-agent/actions/workflows/tests.yml/badge.svg)](https://github.com/adiyounes/crispr-agent/actions/workflows/tests.yml)
 
-## 🚀 Live Demo
+## Live Demo
 
 **API:** https://adiyounes-crispr-agent.hf.space/docs
 
